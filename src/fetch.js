@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import { RemoteInstance } from 'directus-sdk-javascript';
 
 const fetcher = async ({ accessToken, url }) => {
