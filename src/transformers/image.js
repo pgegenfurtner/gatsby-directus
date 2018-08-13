@@ -51,7 +51,7 @@ try {
 
 export default {
     test: (columnData) => {
-        return !gatsbyImageDoesNotExist && columnData.ui === 'single_file' && columnData.related_table === 'directus_files';
+        return columnData.ui === 'single_file' && columnData.related_table === 'directus_files';
     },
 
     transform: async ({
