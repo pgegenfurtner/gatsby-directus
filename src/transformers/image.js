@@ -4,6 +4,11 @@ import Colors from 'colors';
 import path from 'path';
 import { programDirectory, siteUrl, buildEntry, digest, createNodeId } from '../transform';
 
+const fileTypeToLowerCase = (filename) => {
+  const fileType = filename.replace(/.*\./, '');
+  return filename.replace(/\..*?$/, `.${fileType.toLowerCase()}`);
+};
+
 /**
  * Downloads file from directus server to file system
  * 
@@ -74,11 +79,11 @@ export default {
             mimeType = `image/${fileType}`;
         } else {
             imageUrlOnServer = `${siteUrl}${value.data.url}`;
-            localImagePath = `${programDirectory}/.cache/directus${value.data.url}`;
+            localImagePath = `${programDirectory}/.cache/directus${fileTypeToLowerCase(value.data.url)}`;
             await downloadAndMoveToCache(imageUrlOnServer, localImagePath);
             /** TODO: Better way to get name and mimetype for the file */
             fileName = value.data.name.replace(/\..*?$/, '');
-            fileType = value.data.name.replace(/.*\./, '');
+            fileType = value.data.name.replace(/.*\./, '').toLowerCase();
             mimeType = `image/${fileType}`;
         }
 
