@@ -69,7 +69,7 @@ export default {
         foreignTableReference,
         directusEntry
     }) => {
-        let localImagePath, imageUrlOnServer, fileName, fileType, mimeType;
+        let localImagePath, imageUrlOnServer, fileName, fileType, mimeType, fileTitle, fileCaption;
         if (!value) {
             localImagePath = `${programDirectory}/.cache/directus/__default.png`;
             imageUrlOnServer = localImagePath;
@@ -84,6 +84,8 @@ export default {
             /** TODO: Better way to get name and mimetype for the file */
             fileName = value.data.name.replace(/\..*?$/, '');
             fileType = value.data.name.replace(/.*\./, '').toLowerCase();
+            fileTitle = value.data.title;
+            fileCaption = value.data.caption;
             mimeType = `image/${fileType}`;
         }
 
@@ -94,6 +96,8 @@ export default {
             absolutePath: localImagePath,
             extension: fileType,
             name: fileName,
+            title: fileTitle,
+            caption: fileCaption,
             internal: {
                 type: createNodeId(tableName, columnData.id),
                 mediaType: mimeType,
