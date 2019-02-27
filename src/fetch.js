@@ -11,7 +11,7 @@ const fetcher = async ({ accessToken, url }) => {
   let currentTables = [];
   await Promise.all(allTableData.data.map(async (table) => {
     const tableData = await client.getTable(table.name);
-    const tableEntries = await client.getItems(table.name);
+    const tableEntries = await client.getItems(table.name, { limit: '-1' });
     tableData.data.entries = tableEntries.data;
     currentTables.push(tableData.data);
   }));
